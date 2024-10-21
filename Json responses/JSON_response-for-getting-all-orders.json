@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "quantity": 5,
+    "product": {
+      "id": 1,
+      "name": "pen",
+      "stock": 3
+    },
+    "status": "PENDING"
+  },
+  {
+    "id": 2,
+    "quantity": 5,
+    "product": {
+      "id": 1,
+      "name": "pen",
+      "stock": 3
+    },
+    "status": "PENDING"
+  },
+  {
+    "id": 4,
+    "quantity": 30,
+    "product": {
+      "id": 3,
+      "name": "pencil",
+      "stock": 440
+    },
+    "status": "PENDING"
+  },
+  {
+    "id": 5,
+    "quantity": 100,
+    "product": {
+      "id": 2,
+      "name": "book",
+      "stock": 900
+    },
+    "status": "PENDING"
+  }
+]
