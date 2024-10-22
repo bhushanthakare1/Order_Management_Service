@@ -51,7 +51,8 @@ public class OrderService {
 	}
 
 	public Optional<Order> GetOrderById(Long id) {
-		return orderRepository.findById(id);
+		Optional<Order> optionalOrder = orderRepository.findById(id);
+		return optionalOrder;
 	}
 
 	@Transactional
@@ -79,6 +80,7 @@ public class OrderService {
 		return orderRepository.save(order);
 	}
 
+	
 	public void deleteOrder(Long id) {
 		Optional<Order> optionalOrder = orderRepository.findById(id);
 		if (optionalOrder.isEmpty()) {

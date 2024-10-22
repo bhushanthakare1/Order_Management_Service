@@ -8,6 +8,6 @@ import com.example.management.order_management_service.Model.Order;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-	Optional<Order> findById(Long id);
+	
 
 }

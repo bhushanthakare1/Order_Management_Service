@@ -18,6 +18,8 @@ import com.example.management.order_management_service.Model.Order;
 import com.example.management.order_management_service.Model.Product;
 import com.example.management.order_management_service.Service.OrderService;
 
+import io.swagger.v3.oas.annotations.Hidden;
+
 @RestController
 @RequestMapping("/api")
 public class OrderController {
@@ -26,13 +28,13 @@ public class OrderController {
 	private OrderService orderService;
 
 	@PostMapping("/orders")
-	public ResponseEntity<Order> createorder(@RequestParam Long productId, @RequestParam int quantity) {
+	public ResponseEntity<?> createorder(@RequestParam Long productId, @RequestParam int quantity) {
 		try {
 			Order order = orderService.createorder(productId, quantity);
 			return ResponseEntity.status(201).body(order);
 
 		} catch (RuntimeException e) {
-			return ResponseEntity.status(404).body(null);
+			return ResponseEntity.status(404).body(e.getMessage());
 		}
 	}
 
@@ -43,29 +45,31 @@ public class OrderController {
 
 	@GetMapping("/orders/{id}")
 	public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
-		return orderService.GetOrderById(id).map(ResponseEntity::ok).orElse(ResponseEntity.status(404).build());
+		return orderService.GetOrderById(id)
+				.map(ResponseEntity::ok)
+				.orElse(ResponseEntity.status(404).build());
 
 	}
 
 	@PutMapping("/orders/{id}")
-	public ResponseEntity<Order> updateOrder(@PathVariable Long id, @RequestParam int quantity) {
+	public ResponseEntity<?> updateOrder(@PathVariable Long id, @RequestParam int quantity) {
 		try {
 			Order order = orderService.updateOrder(id, quantity);
 			return ResponseEntity.ok(order);
 		} catch (RuntimeException e) {
-			return ResponseEntity.status(400).body(null);
+			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
 
 	@DeleteMapping("/orders/{id}")
-	public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
+	public ResponseEntity<String> deleteOrder(@PathVariable Long id) {
 		try {
 			orderService.deleteOrder(id);
 			return ResponseEntity.noContent().build();
 		} catch (RuntimeException e) {
-			return ResponseEntity.status(400).build();
+			return ResponseEntity.status(400).body(e.getMessage());
 		}
-	}
+	} 
 
 	@PostMapping("/products")
 	public ResponseEntity<Product> CreateProduct(@RequestParam String name, @RequestParam int stock) {
